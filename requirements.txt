@@ -80,15 +80,6 @@ pyperclip==1.7.0
 PyRect==0.1.4
 pyrsistent==0.15.7
 PyScreeze==0.1.26
-pytesseract==0.3.4
-python-dateutil==2.8.1
-PyTweening==1.0.3
-pytz==2020.1
-PyWavelets==1.1.1
-pywin32==228
-pywinpty==0.5.7
-PyYAML==5.3
-pyzmq==19.0.1
 requests==2.23.0
 requests-toolbelt==0.9.1
 ruamel.yaml==0.16.10
