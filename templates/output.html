@@ -1,0 +1,154 @@
+<html>
+   <head>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+     <style>
+        
+    body            { font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;}
+    a, h1, h2       { color: #377ba8; }
+    h1, h2          { margin: 0; }
+    h1              { border-bottom: 2px solid #eee; }
+    h2              { font-size: 1.2em; }
+
+    table.dataframe, .dataframe th, .dataframe td {
+    border: 1px solid black;
+    table-layout: fixed;
+    width: 380px;
+
+    border-bottom: 1px solid black;
+    border-collapse: collapse;
+    text-align:left;
+    padding: 10px;
+    margin-bottom: 40px;
+    font-size: 0.9em;
+    }
+
+    
+
+    
+
+    
+
+    .female th {
+    background-color: #77dd77;
+    color:#77dd77;
+    display:none;
+    }
+
+    tr:nth-child(odd)		{ background-color:#eee; }
+    tr:nth-child(even)	{ background-color:#fff; }
+
+    tr:hover            { background-color: #ffff99;}
+
+
+    .left{
+   width:140px;
+   float:left;
+   height:100%;
+ }
+
+ .right{
+   margin-left:140px;
+   position: fixed;
+   
+ }
+
+
+
+
+
+    
+
+     </style>
+
+     <script>
+        var msg = new SpeechSynthesisUtterance();
+
+        var voices = window.speechSynthesis.getVoices();
+         msg.voice = voices[10]; 
+         msg.volume = 1; // From 0 to 1
+         msg.rate = 1; // From 0.1 to 10
+         msg.pitch = 2; // From 0 to 2
+         
+         msg.lang = 'en';
+
+        function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+         }
+
+
+         async function myFunction() {
+            await sleep(2000);
+            var x = document.getElementById("mylist");
+            x.remove(0);
+         }
+
+     </script>
+   </head>
+   <body>
+      
+      <div class = "left">
+         
+         {% for table in tables %}
+           <h2>{{titles[loop.index]}}</h2>
+           {{ table|safe }}
+         {% endfor %}
+
+         
+
+       </div>
+
+       <script>
+                                       
+         msg.text = "GET READY";
+         window.speechSynthesis.speak(msg);
+      </script>
+
+       <div class = "right">
+
+                        <div  >
+                           <h2><p style = "margin-left: 450px; color: crimson;">Results  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; Number</p></h2>
+                           
+
+                                    {% for line in result %}
+
+
+                                    
+                                    
+                                       {% if line|length > 10 %}
+                                    
+                                       <p style = "margin-left: 450px;">{{line}}</p>
+                                       <script>
+                                          
+                                          msg.text = "{{line}}";
+                                          window.speechSynthesis.speak(msg);
+                                       </script>
+                                       
+                                    
+                                    {% endif %}
+                           </div>
+
+                           <div>
+                                          {% if line|length < 10 %}
+                                       <ul id="mylist" style = "position : fixed;">
+                                          <li id="myid" style = "margin-left: 750px;"> {{line}} </li>
+                                       </ul>
+                                       <script>
+                                       
+                                          msg.text = {{line}};
+                                          window.speechSynthesis.speak(msg);
+                                       </script>
+                                       <script>window.myFunction();</script>
+                                       {% endif %}
+                                       
+
+                                    
+                           
+
+                           {% endfor %}
+                        
+                        
+                        </div>
+               </div>
+      
+   </body>
+</html>
