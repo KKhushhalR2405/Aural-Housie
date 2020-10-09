@@ -14,7 +14,7 @@ import sys
 import speech_recognition as sr
 from win32com.client import Dispatch
 from tabulate import tabulate
-speak = Dispatch("SAPI.SpVoice")
+
 
 app = Flask(__name__)
 
@@ -172,7 +172,7 @@ def main2(t,ticket):
     while (F==0):
         
         n = random_number(l)
-        #speak.speak(n)
+        
         arr.append(n)
         l.remove(n)
         for i in range(t):
@@ -193,8 +193,7 @@ def main2(t,ticket):
         if c==0:
             for k in count.keys():
                     if count[k] == 5:
-                        #speak.speak('Jaldhi 5 for ticket{}'.format(k+1))
-                        #print('Jaldhi 5 for ticket{}'.format(k+1))
+
                         arr.append("Jaldhi 5 for ticket {}".format(k+1))
                         result_array.append('Jaldhi 5 for ticket {}'.format(k+1))
                         
@@ -203,8 +202,7 @@ def main2(t,ticket):
         if r_1==0:
             for N in row_1.keys():
                 if row_1[N]>0:
-                    #speak.speak('Row 1 is Completed for ticket{}'.format(N+1))
-                    #print('Row 1 is Completed for ticket{}'.format(N+1))
+                    
                     arr.append('Row 1 is Completed for ticket {}'.format(N+1))
                     result_array.append('Row 1 is Completed for ticket {}'.format(N+1))
                     r_1+=1
@@ -213,8 +211,7 @@ def main2(t,ticket):
         if r_2==0:
             for M in row_2.keys():
                 if row_2[M]>0:
-                    #speak.speak('Row 2 is Completed for ticket{}'.format(M+1))
-                    #print('Row 2 is Completed for ticket{}'.format(M+1))
+                    
                     arr.append('Row 2 is Completed for ticket {}'.format(M+1))
                     result_array.append('Row 2 is Completed for ticket {}'.format(M+1))
                     r_2+=1
@@ -222,20 +219,18 @@ def main2(t,ticket):
         if r_3==0:
             for L in row_3.keys():
                 if row_3[L]>0:
-                    #speak.speak('Row 3 is Completed for ticket{}'.format(L+1))
-                    #print('Row 3 is Completed for ticket{}'.format(L+1))
+                    
                     arr.append('Row 3 is Completed for ticket {}'.format(L+1))
                     result_array.append('Row 3 is Completed for ticket {}'.format(L+1))
                     r_3+=1
         
         for O in final.keys():
             if final[O]>1:
-                #speak.speak('Bingo! Congratulations for ticket {}'.format(O+1))
-                #print('Bingo! Congratulations ! for ticket{}'.format(O+1))
+
                 arr.append("Bingo! Congratulations for ticket {}".format(O+1))
                 result_array.append('Bingo! Congratulations for ticket {}'.format(O+1))
                 F+=1
-    print(arr)
+    
     i=0
     while(i<len(arr)):
         
@@ -247,7 +242,7 @@ def main2(t,ticket):
  
 #-------------------------------------------
 #-------------------------------------------
-def maindf(ticket_list):
+def maindf(ticket_list):  #to convert numpy array to pandas dataframe
     k=[]
     l=[]
     for i in ticket_list:
@@ -265,7 +260,7 @@ def maindf(ticket_list):
 
 
 @app.route('/')
-def main():
+def main():   #default route
    return render_template('main.html')
 
 
@@ -288,7 +283,7 @@ def show_tables():
         table_list = [i.to_html(classes='female') for i in final_df]
         title_list = ["Ticket "+str(i) for i in range(t+1)]
 
-        #return render_template('result.html',tables=table_list,titles = title_list,result=final_number)
+        
         env = Environment(loader=FileSystemLoader('templates'))
         tmpl = env.get_template('output.html')
         return flask.Response(tmpl.generate(tables=table_list,titles = title_list,result=final_number))
