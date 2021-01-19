@@ -12,4 +12,3 @@
 
 <br>
 <img  height="300" width="500" alt="" src="https://github.com/KKhushhalR2405/Aural-Housie/blob/master/output/ss4.png" />
-V
